@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model User{
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  password String 
+  createdAt DateTime @default(now())
+  decisions Decision[]
+  biasReport BiasedReport?
+}
+
+model Decision{
+  id String @id @default(cuid())  
+  userId Int
+  title String
+  description   String
+  options String[]
+  choiceMade String
+  reasoning String
+  confidencelvl Int   //1-10
+  emotionalState EmotionalState
+  category Category
+  stake Stakes
+  reviewDate DateTime
+  createdAt DateTime @default(now())
+  user   User    @relation(fields: [userId], references: [id])
+  review Review?
+}
+
+model Review{
+  id String @id @default(cuid())
+  decisionId String @unique
+  outcome Int //1-10
+  reflection String //what happen
+  reasoningGoodOrNot Boolean
+  createdAt DateTime @default(now())
+  decision Decision @relation(fields: [decisionId],references: [id])
+}
+
+model BiasedReport{
+  id String @id @default(cuid())
+  userId Int @unique
+  avgConfidence Float
+  avgOutCome Float
+  biasGap Float
+  bestCategory String
+  WorstCategory String
+  overconfidenceScore Float
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId],references: [id])
+
+}
+
+enum EmotionalState {
+  CALM
+  ANXIOUS
+  EXCITED
+  PRESSURED
+}
+
+enum Category {
+  FINANCIAL
+  HEALTH
+  RELATIONSHIP
+  LIFE
+  CAREER
+}
+
+enum Stakes {
+  LOW
+  MEDIUM
+  HIGH
+  IRREVERSIBLE
+}
