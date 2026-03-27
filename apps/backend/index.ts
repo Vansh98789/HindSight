@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 
-import {prisma} from "../../packages/db/db"
 import authRoute from "./route/authroutes";
 import cookieParser from "cookie-parser";
 
