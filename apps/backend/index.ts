@@ -1,8 +1,11 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import authRoute from "./route/authroutes";
-import cookieParser from "cookie-parser";
+import decisionRoute from "./route/decisionRoute";
+import authMiddleware from "./middleware/authMiddleware";
+
 
 
 const app=express();
@@ -16,6 +19,7 @@ app.use(express.json())
 app.use(cookieParser());
 
 app.use("/auth",authRoute);
+app.use("/decision",authMiddleware,decisionRoute);
 
 
 app.listen(3000,()=>{
