@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import reviewRoutes from './route/reviewRoutes';
 
 import authRoute from "./route/authroutes";
 import decisionRoute from "./route/decisionRoute";
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 app.use("/auth",authRoute);
 app.use("/decision",authMiddleware,decisionRoute);
+app.use('/api/reviews', reviewRoutes);
 
 
 app.listen(3000,()=>{
