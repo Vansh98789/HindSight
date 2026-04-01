@@ -1,12 +1,18 @@
 import { type Request, type Response } from 'express';
+import { prisma } from '../../../packages/db/db';
 
-// POST /api/reviews/:decisionId
 export const submitReview = async (req: Request, res: Response) => {
   try {
-    const { decisionId } = req.params;  // URL se aata hai
-    const { outcome, reflection, reasoningGoodOrNot } = req.body;  // form se aata hai
-
-    // abhi sirf confirm kar rahe hain ki data mila
+    const decisionId   = req.params.decisionId as string;  
+    const { outcome, reflection, reasoningGoodOrNot } = req.body;  
+      await prisma.review.create({
+        data:{
+          decisionId,
+          outcome,
+          reflection,
+          reasoningGoodOrNot
+        }
+      })
     res.status(201).json({
       message: 'Review submitted!',
       received: { decisionId, outcome, reflection, reasoningGoodOrNot }
@@ -20,12 +26,16 @@ export const submitReview = async (req: Request, res: Response) => {
 // GET /api/reviews/:decisionId
 export const getReview = async (req: Request, res: Response) => {
   try {
-    const { decisionId } = req.params;  // kis decision ka review chahiye
+    const decisionId  = req.params.decisionId as string;  
 
-    // abhi sirf confirm kar rahe hain
+    const decision=await prisma.review.findUnique({
+      where:{
+        decisionId
+      }
+    })
+
     res.status(200).json({
-      message: 'Get review!',
-      decisionId
+      msg:decision
     });
 
   } catch (error) {

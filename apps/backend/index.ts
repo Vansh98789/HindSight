@@ -19,9 +19,9 @@ app.use(cors({
 app.use(express.json())
 app.use(cookieParser());
 
-app.use("/auth",authRoute);
-app.use("/decision",authMiddleware,decisionRoute);
-app.use('/api/reviews', reviewRoutes);
+app.use("/api/auth",authRoute);
+app.use("/api/decision",authMiddleware,decisionRoute);
+app.use('/api/reviews',authMiddleware, reviewRoutes);
 
 
 app.listen(3000,()=>{
@@ -29,9 +29,3 @@ app.listen(3000,()=>{
 })
 
 
-
-
-
-
-
-//use prisma for db handle
