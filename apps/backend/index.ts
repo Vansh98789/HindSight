@@ -20,6 +20,10 @@ app.use(cors({
 app.use(express.json())
 app.use(cookieParser());
 
+app.get("/",(req,res)=>{
+    res.send("hello world")
+}
+)
 app.use("/api/auth",authRoute);
 app.use("/api/decision",authMiddleware,decisionRoute);
 app.use('/api/reviews',authMiddleware, reviewRoutes);
