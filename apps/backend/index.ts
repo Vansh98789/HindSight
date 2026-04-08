@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import reviewRoutes from './route/reviewRoutes';
 import analyticsRoutes from "./route/analyticsRoute";
 
-import authRoute from "./route/authRoutes";
+import authRoute from "./route/authroutes";
 import decisionRoute from "./route/decisionRoute";
 import authMiddleware from "./middleware/authMiddleware";
 
