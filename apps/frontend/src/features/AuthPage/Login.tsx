@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../../lib/api";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -24,22 +24,17 @@ export default function Login() {
 
     try {
 
-      const res = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        form,
-        {
-          withCredentials: true 
-        }
-      );
+      const res = await api.post("/api/auth/login", form);
+
 
       alert(res.data.message);
+      navigate("/dashboard")
 
     } catch (err:any) {
       alert(err.response?.data?.msg || "Login failed");
     }
 
     setLoading(false);
-    navigate("/dashboard")
   };
 
   return (
