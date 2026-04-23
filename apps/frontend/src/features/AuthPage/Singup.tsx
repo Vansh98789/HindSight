@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../../lib/api";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
@@ -25,11 +25,7 @@ export default function Signup() {
 
     try {
 
-      const res = await axios.post(
-        "http://localhost:3000/api/auth/register",
-        form,
-        { withCredentials: true }
-      );
+      const res = await api.post("/api/auth/register", form);
 
       alert(res.data.message);
 
