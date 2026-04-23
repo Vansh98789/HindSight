@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../lib/api";
 
 type Decision = {
@@ -17,6 +18,8 @@ type Decision = {
 };
 
 export default function MyDecision() {
+  const navigate = useNavigate();
+  
   const [decisions, setDecisions] = useState<Decision[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -242,6 +245,7 @@ export default function MyDecision() {
 
                     <button
                       type="button"
+                      onClick={() => navigate(`/dashboard/decision/${decision.id}`)}
                       className="mt-6 w-full rounded-2xl border border-indigo-400/20 bg-indigo-500/10 px-4 py-3 text-sm font-semibold text-indigo-200 transition hover:bg-indigo-500/20"
                     >
                       View Details
