@@ -257,31 +257,3 @@ export const deleteDecision = async (req: AuthReq, res: Response) => {
     });
   }
 };
-
-export const getPending=async(req: AuthReq, res: Response)=>{
-  try{
-    const userId=req.userId;
-      if (!userId) {
-      return res.status(401).json({
-        msg: "not authorized",
-      });
-    }
-    const decision= await prisma.decision.findMany({
-      where:{
-        userId,
-        pending:true,
-      }
-    }
-    )
-  return res.status(200).json({
-    decision
-  })
-
-  }
-  catch(e){
-    console.log(e);
-    return res.status(500).json({
-      msg: "server error",
-    });
-  }
-}
