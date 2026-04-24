@@ -1,6 +1,7 @@
 import type { Response } from "express";
 import { prisma } from "../../../packages/db/db";
 import type { AuthReq } from "../types/express";
+import type { Request, Response } from "express";
 
 interface decision {
   title: string;
@@ -110,6 +111,38 @@ export const allDecision=async(req:AuthReq,res:Response)=>{
     }
 
 }
+
+export const pendingDecision = async (req: AuthReq, res: Response) => {
+  const userId = req.userId;
+
+  if (!userId) {
+    return res.status(401).json({
+      msg: "not authorized",
+    });
+  }
+
+  try {
+    const pending = await prisma.decision.findMany({
+      where: {
+        userId,
+        reviewDate: { lte: new Date() },
+        review: null,
+      },
+      orderBy: {
+        reviewDate: "asc",
+      },
+    });
+
+    return res.status(200).json({
+      decision: pending,
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      msg: "server error",
+    });
+  }
+};
 
 export const singleDecision=async(req:AuthReq,res:Response)=>{
     const userId=req.userId;

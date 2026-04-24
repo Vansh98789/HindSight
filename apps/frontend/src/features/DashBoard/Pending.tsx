@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../lib/api";
 
@@ -20,15 +20,15 @@ type Decision = {
 export default function Pending() {
   const navigate = useNavigate();
 
-  const [decisions, setDecisions] = useState<Decision[]>([]);
+  const [pendingDecisions, setPendingDecisions] = useState<Decision[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchDecisions = async () => {
+    const fetchPendingDecisions = async () => {
       try {
-        const res = await api.get("/api/decision/all");
-        setDecisions(res.data.decision || []);
+        const res = await api.get("/api/decision/pending");
+        setPendingDecisions(res.data.decision || []);
       } catch (err: any) {
         setError(err.response?.data?.msg || "Failed to load pending decisions");
       } finally {
@@ -36,19 +36,8 @@ export default function Pending() {
       }
     };
 
-    fetchDecisions();
+    fetchPendingDecisions();
   }, []);
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const pendingDecisions = useMemo(() => {
-    return decisions.filter((decision) => {
-      const review = new Date(decision.reviewDate);
-      review.setHours(0, 0, 0, 0);
-      return review <= today;
-    });
-  }, [decisions]);
 
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("en-IN", {
@@ -59,7 +48,10 @@ export default function Pending() {
   };
 
   const getUrgencyText = (date: string) => {
+    const today = new Date();
     const review = new Date(date);
+
+    today.setHours(0, 0, 0, 0);
     review.setHours(0, 0, 0, 0);
 
     const diff = Math.ceil(
@@ -73,7 +65,10 @@ export default function Pending() {
   };
 
   const getUrgencyStyle = (date: string) => {
+    const today = new Date();
     const review = new Date(date);
+
+    today.setHours(0, 0, 0, 0);
     review.setHours(0, 0, 0, 0);
 
     const diff = Math.ceil(
@@ -126,8 +121,8 @@ export default function Pending() {
               Decisions waiting for your future judgment
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
-              The real value of this app appears here. This is where you compare
-              confidence with outcome and learn whether your reasoning held up.
+              This is where your decision journal becomes useful. Review what actually
+              happened and compare it with how certain you felt at the time.
             </p>
           </div>
         </div>
@@ -146,7 +141,7 @@ export default function Pending() {
           <div className="rounded-3xl border border-white/10 bg-[#111114] p-6 shadow-xl shadow-black/20">
             <p className="text-sm text-slate-400">Focus</p>
             <h2 className="mt-2 text-xl font-semibold text-slate-200">
-              Reflect before memory rewrites the story
+              Reflect before memory softens the details
             </h2>
           </div>
         </div>
@@ -155,7 +150,7 @@ export default function Pending() {
           <div className="rounded-3xl border border-dashed border-white/10 bg-[#111114] p-10 text-center">
             <h2 className="text-2xl font-semibold text-white">No pending reviews</h2>
             <p className="mt-3 text-sm text-slate-400">
-              Nothing is due right now. Your review queue is clear.
+              Nothing is due right now. Once review dates arrive, they will appear here.
             </p>
           </div>
         ) : (
@@ -235,7 +230,7 @@ export default function Pending() {
 
                     <button
                       type="button"
-                      onClick={() => navigate(`/dashboard/decision/${decision.id}`)}
+                      onClick={() => navigate(`/dashboard/review/${decision.id}`)}
                       className="mt-6 w-full rounded-2xl border border-amber-400/20 bg-amber-500/10 px-4 py-3 text-sm font-semibold text-amber-200 transition hover:bg-amber-500/20"
                     >
                       Write Review
