@@ -7,6 +7,7 @@ import DashBoard from "./features/DashBoard/DashBoard"
 import MyDecision from "./features/DashBoard/MyDecision"
 import ReviewDecision from "./features/DashBoard/ReviewDecision"
 import DecisionDetail from "./features/DashBoard/DecisionDetail"
+import EditDecision from "./features/DashBoard/EditDecision"
 import Pending from "./features/DashBoard/Pending"
 import CreateDecision from "./features/DashBoard/CreateDecision"
 import Analytics from "./features/DashBoard/Analytics"
@@ -27,6 +28,7 @@ function App() {
               <Route path="analytics" element={<Analytics/>}/>
               <Route path="decision/:id" element={<DecisionDetail/>}/>
               <Route path="review/:id" element={<ReviewDecision/>}/>
+              <Route path="edit/:id" element={<EditDecision/>}/>
 
             </Route> 
 
