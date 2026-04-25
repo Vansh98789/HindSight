@@ -1,22 +1,32 @@
 import { useNavigate } from "react-router-dom";
-const NavBar1= () => {
-    const navigate=useNavigate();
-  return (
-    <nav className="w-full px-8 py-4 flex items-center justify-between border-b border-gray-800 bg-black">
-      
-      <h1 className="text-2xl font-bold text-white tracking-tight">
-        Hind<span className="text-indigo-500">sight</span>
-      </h1>
 
-      <div className="flex items-center gap-4">
-        <button  onClick={()=>{navigate('/login')}}className="text-sm text-gray-300 hover:text-white transition-colors duration-200">
+const NavBar1 = () => {
+  const navigate = useNavigate();
+
+  return (
+    <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5 sm:px-8 lg:px-10">
+      <button
+        onClick={() => navigate("/")}
+        className="text-left text-3xl font-semibold tracking-tight text-white"
+      >
+        Hind<span className="text-indigo-400">sight</span>
+      </button>
+
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => navigate("/login")}
+          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 backdrop-blur-md transition hover:bg-white/10"
+        >
           Login
         </button>
-        <button onClick={()=>{navigate('/signup')}} className="text-sm bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg transition-colors duration-200">
+
+        <button
+          onClick={() => navigate("/signup")}
+          className="rounded-2xl bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400"
+        >
           Sign Up
         </button>
       </div>
-
     </nav>
   );
 };
