@@ -1,4 +1,4 @@
-import {Navigate, Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import LandingPage from "./features/LandingPage/LandingPage"
 import Signup from "./features/AuthPage/Singup"
@@ -13,34 +13,34 @@ import EditDecision from "./features/DashBoard/EditDecision"
 import Pending from "./features/DashBoard/Pending"
 import CreateDecision from "./features/DashBoard/CreateDecision"
 import Analytics from "./features/DashBoard/Analytics"
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-
   return (
     <>
-          <Routes>
-            <Route path="/" element={<LandingPage/>}/>
-            <Route path="/signup" element={<Signup/>}/>
-            <Route path="/login" element={<Login/>}/>
-              <Route path="/dashboard" element={<DashBoard/>}>
-              <Route index element={<Navigate to="myDecision" replace />} />
-              <Route path="myDecision" element={<MyDecision/>}/>
-              <Route path="pending" element={<Pending/>}/>
-              <Route path="createDecision" element={<CreateDecision/>}/>
-              <Route path="analytics" element={<Analytics/>}/>
-              <Route path="decision/:id" element={<DecisionDetail/>}/>
-              <Route path="review/:id" element={<ReviewDecision/>}/>
-              <Route path="edit/:id" element={<EditDecision/>}/>
-              <Route path="profile" element={<Profile/>}/>
-              <Route path="change-password" element={<ChangePassword/>}/>
 
 
-            </Route> 
-
-          </Routes>
-
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<DashBoard />}>
+            <Route index element={<Navigate to="myDecision" replace />} />
+            <Route path="myDecision" element={<MyDecision />} />
+            <Route path="pending" element={<Pending />} />
+            <Route path="createDecision" element={<CreateDecision />} />
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="decision/:id" element={<DecisionDetail />} />
+            <Route path="review/:id" element={<ReviewDecision />} />
+            <Route path="edit/:id" element={<EditDecision />} />
+            <Route path="profile" element={<Profile/>}/>
+            <Route path="change-password" element={<ChangePassword/>}/>
+          </Route>
+        </Route>
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
