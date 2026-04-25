@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import bcrypt from "bcrypt";
 import { prisma } from "../../../packages/db/db";
 import jwt from "jsonwebtoken";
+import type { AuthReq } from '../types/express';
 
 export const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
@@ -83,3 +84,44 @@ export const login = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Something went wrong' });
   }
 };
+
+
+export const me = async (req: AuthReq, res: Response) => {
+  try {
+    if (!req.userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.userId,
+      },
+      select: {
+        id: true,
+        email: true,
+        name:true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.json({ user });
+  } catch (err) {
+    console.error("ME ERROR:", err); // 👈 add this
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+export const logout=(req: Request, res: Response) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+  return res.status(200).json({ message: "Logged out successfully" });
+}
+
