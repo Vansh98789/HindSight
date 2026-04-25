@@ -6,6 +6,8 @@ import Login from "./features/AuthPage/Login"
 import DashBoard from "./features/DashBoard/DashBoard"
 import MyDecision from "./features/DashBoard/MyDecision"
 import ReviewDecision from "./features/DashBoard/ReviewDecision"
+import Profile from "./features/DashBoard/Profile"
+import ChangePassword from "./features/DashBoard/ChangePassword"
 import DecisionDetail from "./features/DashBoard/DecisionDetail"
 import EditDecision from "./features/DashBoard/EditDecision"
 import Pending from "./features/DashBoard/Pending"
@@ -29,6 +31,9 @@ function App() {
               <Route path="decision/:id" element={<DecisionDetail/>}/>
               <Route path="review/:id" element={<ReviewDecision/>}/>
               <Route path="edit/:id" element={<EditDecision/>}/>
+              <Route path="profile" element={<Profile/>}/>
+              <Route path="change-password" element={<ChangePassword/>}/>
+
 
             </Route> 
 
