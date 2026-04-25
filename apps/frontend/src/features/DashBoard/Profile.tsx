@@ -40,7 +40,7 @@ export default function Profile() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#09090b] px-6 py-10 text-white">
-        <div className="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-[#111114] p-8">
+        <div className="mx-auto max-w-6xl rounded-3xl border border-white/10 bg-[#111114] p-8">
           <p className="text-lg text-slate-300">Loading profile...</p>
         </div>
       </div>
@@ -50,7 +50,7 @@ export default function Profile() {
   if (error) {
     return (
       <div className="min-h-screen bg-[#09090b] px-6 py-10 text-white">
-        <div className="mx-auto max-w-5xl rounded-3xl border border-red-400/20 bg-red-500/10 p-8">
+        <div className="mx-auto max-w-6xl rounded-3xl border border-red-400/20 bg-red-500/10 p-8">
           <h2 className="text-xl font-semibold text-red-200">Something went wrong</h2>
           <p className="mt-2 text-sm text-red-100/80">{error}</p>
         </div>
@@ -90,14 +90,14 @@ export default function Profile() {
           </div>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid gap-6">
           <section className="rounded-3xl border border-white/10 bg-[#111114] p-6 shadow-xl shadow-black/20">
             <h2 className="text-xl font-semibold text-white">Account Details</h2>
             <p className="mt-1 text-sm text-slate-400">
               Basic identity information connected to your account.
             </p>
 
-            <div className="mt-6 grid gap-4">
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
               <div className="rounded-2xl border border-white/8 bg-[#16161c] p-5">
                 <p className="text-sm text-slate-400">Full Name</p>
                 <p className="mt-2 text-base font-medium text-white">
@@ -113,25 +113,6 @@ export default function Profile() {
               </div>
             </div>
           </section>
-
-          <aside className="space-y-6">
-            <section className="rounded-3xl border border-white/10 bg-[#111114] p-6 shadow-xl shadow-black/20">
-              <h2 className="text-xl font-semibold text-white">Why this matters</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-300">
-                HindSight is built around continuity. The quality of your insights
-                improves when your decisions, reviews, and patterns stay tied to one
-                consistent account over time.
-              </p>
-            </section>
-
-            <section className="rounded-3xl border border-indigo-400/15 bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 p-6 shadow-xl shadow-black/20">
-              <h3 className="text-lg font-semibold text-white">Next useful step</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">
-                Add change-password support next so the profile area becomes a real
-                account-management section instead of just a display page.
-              </p>
-            </section>
-          </aside>
         </div>
       </div>
     </div>
