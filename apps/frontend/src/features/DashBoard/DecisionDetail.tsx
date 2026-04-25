@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../lib/api";
 
 type Decision = {
@@ -18,6 +18,7 @@ type Decision = {
 };
 
 export default function DecisionDetail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [decision, setDecision] = useState<Decision | null>(null);
   const [loading, setLoading] = useState(true);
@@ -62,6 +63,23 @@ export default function DecisionDetail() {
         return "bg-white/10 text-slate-200 border-white/10";
     }
   };
+
+    const handleDelete = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this decision? This action cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    try {
+      await api.delete(`/api/decision/${id}`);
+      alert("Decision deleted successfully");
+      navigate("/dashboard/myDecision");
+    } catch (err: any) {
+      alert(err.response?.data?.msg || "Failed to delete decision");
+    }
+  };
+
 
   if (loading) {
     return (
@@ -200,13 +218,32 @@ export default function DecisionDetail() {
               </div>
             </section>
 
-            <section className="rounded-3xl border border-cyan-400/15 bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 p-6 shadow-xl shadow-black/20">
+                        <section className="rounded-3xl border border-cyan-400/15 bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 p-6 shadow-xl shadow-black/20">
               <h3 className="text-lg font-semibold text-white">Why This Page Matters</h3>
               <p className="mt-3 text-sm leading-7 text-slate-300">
                 Good decision-making improves when you can inspect your past logic clearly,
                 not just remember the outcome.
               </p>
+
+              <div className="mt-6 grid gap-3">
+                <button
+                  type="button"
+                  onClick={() => navigate(`/dashboard/edit/${decision.id}`)}
+                  className="w-full rounded-2xl border border-indigo-400/20 bg-indigo-500/10 px-4 py-3 text-sm font-semibold text-indigo-200 transition hover:bg-indigo-500/20"
+                >
+                  Edit Decision
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleDelete}
+                  className="w-full rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-200 transition hover:bg-red-500/20"
+                >
+                  Delete Decision
+                </button>
+              </div>
             </section>
+
           </aside>
         </div>
       </div>
