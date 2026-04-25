@@ -13,6 +13,7 @@ const NavBar2 = () => {
 
   return (
     <nav className="sticky top-0 z-30 border-b border-white/8 bg-[#0b0c10]/85 backdrop-blur-xl">
+
       <div className="flex w-full items-center justify-between px-6 py-4 sm:px-8 lg:px-10">
         <button
           onClick={() => navigate("/dashboard/myDecision")}

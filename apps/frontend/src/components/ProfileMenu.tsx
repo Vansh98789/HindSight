@@ -94,7 +94,7 @@ export default function ProfileMenu() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-3 w-80 overflow-hidden rounded-[28px] border border-white/10 bg-[#101115]/95 shadow-2xl shadow-black/50 backdrop-blur-2xl">
+        <div className="absolute right-0 z-[100] mt-3 w-80 overflow-hidden rounded-[28px] border border-white/10 bg-[#101115]/95 shadow-2xl shadow-black/50 backdrop-blur-2xl">
           <div className="border-b border-white/8 bg-[linear-gradient(180deg,rgba(99,102,241,0.12)_0%,rgba(16,17,21,0.1)_100%)] px-5 py-5">
             <div className="flex items-center gap-4">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-cyan-400 text-base font-semibold text-white shadow-lg shadow-indigo-500/20">
