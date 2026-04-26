@@ -10,5 +10,5 @@ router.get("/me", authMiddleware, me);
 
 router.post("/logout", logout);
 
-router.patch("/change-password",changePassword);
+router.patch("/change-password",authMiddleware,changePassword);
 export default router;

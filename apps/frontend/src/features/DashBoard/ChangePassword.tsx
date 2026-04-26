@@ -30,7 +30,7 @@ export default function ChangePassword() {
     setLoading(true);
 
     try {
-      const res = await api.put("/api/auth/change-password", {
+      const res = await api.patch("/api/auth/change-password", {
         currentPassword: form.currentPassword,
         newPassword: form.newPassword,
       });
@@ -71,9 +71,12 @@ export default function ChangePassword() {
         <div className="grid gap-6">
           <section className="rounded-[32px] border border-white/10 bg-[#111114] p-6 shadow-xl shadow-black/20">
             <div className="mb-6">
-              <h2 className="text-2xl font-semibold text-white">Update Password</h2>
+              <h2 className="text-2xl font-semibold text-white">
+                Update Password
+              </h2>
               <p className="mt-2 text-sm text-slate-400">
-                Enter your current password and choose a new one you haven’t used elsewhere.
+                Enter your current password and choose a new one you haven’t
+                used elsewhere.
               </p>
             </div>
 

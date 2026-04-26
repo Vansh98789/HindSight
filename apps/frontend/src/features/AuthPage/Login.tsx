@@ -1,36 +1,36 @@
 import { useState } from "react";
 import api from "../../lib/api";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
+  const { setUser } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const [loading, setLoading] = useState(false);
-  const navigate=useNavigate();
-  const handleChange = (e:any) => {
+  const navigate = useNavigate();
+
+  const handleChange = (e: any) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-
       const res = await api.post("/api/auth/login", form);
-
-
-      alert(res.data.message);
-      navigate("/dashboard")
-
-    } catch (err:any) {
+      console.log(res.data);
+      setUser(res.data.user);
+      navigate("/dashboard");
+    } catch (err: any) {
       alert(err.response?.data?.msg || "Login failed");
     }
 
@@ -39,15 +39,10 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
-
-        <h2 className="text-2xl font-bold text-center mb-6">
-           Login
-        </h2>
+        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-
           <input
             type="email"
             name="email"
@@ -79,19 +74,15 @@ export default function Login() {
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
-
         </form>
 
         <p className="text-sm text-center mt-4">
           Don't have an account?
           <span className="text-blue-600 cursor-pointer ml-1">
             <Link to="/signup">Sign up</Link>
-            
           </span>
         </p>
-
       </div>
-
     </div>
   );
 }
