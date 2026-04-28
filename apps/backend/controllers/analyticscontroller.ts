@@ -1,7 +1,7 @@
 import { type Response } from "express";
 
-import { prisma } from "../../../packages/db/db";
-import type { AuthReq } from "../types/express";
+import { prisma } from "../../../packages/db/db.js";
+import type { AuthReq } from "../types/express.js";
 
 
 

@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 import bcrypt from "bcrypt";
-import { prisma } from "../../../packages/db/db";
+import { prisma } from "../../../packages/db/db.js";
 import jwt from "jsonwebtoken";
-import type { AuthReq } from '../types/express';
+import type { AuthReq } from '../types/express.js';
 
 export const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;

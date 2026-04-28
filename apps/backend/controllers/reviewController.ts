@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { prisma } from '../../../packages/db/db';
+import { prisma } from '../../../packages/db/db.js';
 
 export const submitReview = async (req: Request, res: Response) => {
   try {

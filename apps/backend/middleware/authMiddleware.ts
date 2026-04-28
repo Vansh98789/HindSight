@@ -1,6 +1,6 @@
 import type { NextFunction, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
-import type { AuthReq } from "../types/express";
+import type { AuthReq } from "../types/express.js";
 import dotenv from "dotenv";
 
 dotenv.config();
