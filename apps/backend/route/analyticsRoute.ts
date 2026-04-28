@@ -4,7 +4,7 @@ import {
   getBiasReport,
   getCategoryBreakdown,
   getEmotionBreakdown,
-} from "../controllers/analyticsController";
+} from "../controllers/analyticscontroller.js";
 
 const router = Router();
 

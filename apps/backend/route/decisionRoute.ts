@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { allDecision, createDecision, deleteDecision, editDecision, pendingDecision, singleDecision } from "../controllers/decisionController";
+import { allDecision, createDecision, deleteDecision, editDecision, pendingDecision, singleDecision } from "../controllers/decisionController.js";
 
 const router=Router();
 
