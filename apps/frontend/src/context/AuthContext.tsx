@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = async () => {
     try {
       await axios.post(
-        "http://localhost:3000/api/auth/logout",
+        "https://backend-production-0332.up.railway.app/api/auth/logout",
         {},
         { withCredentials: true },
       );
